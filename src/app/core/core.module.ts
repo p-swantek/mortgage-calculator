@@ -7,8 +7,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [],
   imports: [
-    CommonModule,
-    ReactiveFormsModule
+    CommonModule
+  ],
+  exports: [
+
   ]
 })
 export class CoreModule { }

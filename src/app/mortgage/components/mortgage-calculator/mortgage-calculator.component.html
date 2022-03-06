@@ -1,1 +1,79 @@
-<mat-slider ></mat-slider>
+<div class="container" style="margin-top: 100px">
+  <form [formGroup]="formGroup">
+    <div class="row">
+      <div class="col-4">
+        <div class="row">
+          <div class="col">
+            <h2>Purshase Price: </h2>
+          </div>
+          <div class="col">
+            <h2>{{formGroup.get('purchasePrice')!.value | currency}}</h2>
+          </div>
+        </div>
+        <mat-slider [step]="1" [min]="0" [max]="purchasePrice" [value]="purchasePrice"
+          (input)="purchasePriceChanged($event)"></mat-slider>
+      </div>
+      <div class="col-4">
+        <div class="row">
+          <div class="col">
+            <h2>Down Payment: </h2>
+          </div>
+          <div class="col">
+            <h2>{{formGroup.get('downPayment')!.value | currency}}</h2>
+          </div>
+        </div>
+        <mat-slider [step]="1" [min]="0" [max]="formGroup.get('purchasePrice')!.value" [value]="formGroup.get('purchasePrice')!.value"
+          (input)="downPaymentChanged($event)"></mat-slider>
+      </div>
+      <div class="col-4">
+        <div class="row">
+          <div class="col">
+            <h2>Repayment Time: </h2>
+          </div>
+          <div class="col">
+            <h2>{{formGroup.get('repaymentTime')!.value}}</h2>
+          </div>
+        </div>
+        <mat-slider [step]="1" [min]="1" [max]="repaymentTime" (input)="repaymentTimeChanged($event)" [value]="formGroup.get('repaymentTime')?.value"></mat-slider>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-4">
+        <div class="row">
+          <div class="col">
+            <h2>Interest Rate: </h2>
+          </div>
+          <div class="col">
+            <h2>{{formGroup.get('interestRate')!.value}}</h2>
+          </div>
+        </div>
+        <mat-slider [step]="0.01" [min]="0" [max]="100" [value]="interestRate" (input)="interestRateChanged($event)">
+        </mat-slider>
+      </div>
+      <div class="col-4">
+        <div class="row">
+          <div class="col">
+            <h2>Loan amount: </h2>
+          </div>
+          <div class="col">
+            <h2>{{formGroup.get('loanAmount')!.value | currency}}</h2>
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="row">
+          <div class="col">
+            <h2>Estimated per month: </h2>
+          </div>
+          <div class="col">
+            <h2>{{formGroup.get('paymentPerMonth')!.value | currency}}</h2>          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-3">
+        <button mat-raised-button color="primary">Get a mortgage quote</button>
+      </div>
+    </div>
+  </form>
+</div>
