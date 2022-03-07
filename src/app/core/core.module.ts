@@ -10,7 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule
   ],
   exports: [
-
+    CommonModule
   ]
 })
 export class CoreModule { }

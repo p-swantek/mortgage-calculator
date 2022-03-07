@@ -2,11 +2,14 @@ import { NgModule, enableProdMode } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RepaymentTimePipe } from './pipes/repayment-time.pipe';
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    RepaymentTimePipe
+  ],
   imports: [
     CommonModule,
     MaterialModule,
@@ -16,7 +19,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MaterialModule,
     ReactiveFormsModule,
     CommonModule,
-
+    RepaymentTimePipe
   ]
 })
 export class SharedModule { }

@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>Mortgage Quote Details</h2>
+<mat-dialog-content>
+  <ul>
+    <li>Purchase Price: {{details.purchasePrice | currency}}</li>
+    <li>Down Payment: {{details.downPayment | currency}}</li>
+    <li>Loan Amount: {{details.loanAmount | currency}}</li>
+    <li>Repayment Time: {{details.repaymentTime | repaymentTime}}</li>
+    <li>Interest Rate: {{details.interestRate}}</li>
+    <li>Monthly Payment: {{details.paymentPerMonth | currency}}</li>
+
+  </ul>
+
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+  <button mat-button color="primary" matDialogClose>Ok</button>
+</mat-dialog-actions>

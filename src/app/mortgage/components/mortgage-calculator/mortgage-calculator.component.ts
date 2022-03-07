@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSliderChange } from '@angular/material/slider';
 import { filter, map, merge } from 'rxjs';
 import { MortgageCalculatorService } from '../../mortgage-calculator.service';
+import { MortgageQuoteDetailsComponent } from '../mortgage-quote-details/mortgage-quote-details.component';
+import { MortgageDetails } from '../../mortgage-params';
 
 @Component({
   selector: 'mortgage-calculator',
@@ -15,22 +18,22 @@ export class MortgageCalculatorComponent{
   repaymentTime: number;
   interestRate: number;
 
-  constructor(private fb: FormBuilder, private calculator: MortgageCalculatorService) {
+  constructor(private fb: FormBuilder, private calculator: MortgageCalculatorService, private dialog: MatDialog) {
     this.purchasePrice = 200000;
     this.repaymentTime = 25;
     this.interestRate = 6;
     this.formGroup = this.fb.group({
       purchasePrice: [this.purchasePrice],
-      downPayment: [100000],
+      downPayment: [0],
       repaymentTime: [this.repaymentTime],
       interestRate: [this.interestRate],
       loanAmount: [this.purchasePrice],
       paymentPerMonth: ['']
     },);
     this.formGroup.disable();
-    let payment = this.calculator.calculateMonthlyPayment(this.purchasePrice, 100000, this.interestRate, this.repaymentTime);
+    let payment = this.calculator.calculateMonthlyPayment(this.purchasePrice, 0, this.interestRate, this.repaymentTime);
 
-    this.formGroup.patchValue({paymentPerMonth: payment}, {emitEvent: false});
+    this.formGroup.patchValue({paymentPerMonth: payment});
 
     this.formGroup.get('purchasePrice')!.valueChanges.subscribe((v: number) => {
       let amount = v - this.formGroup.get('downPayment')!.value;
@@ -67,6 +70,11 @@ export class MortgageCalculatorComponent{
 
   interestRateChanged(event: MatSliderChange): void{
     this.formGroup.patchValue({'interestRate': event.value})
+  }
+
+  showMortgageQuoteDetails(): void{
+    let details = this.formGroup.value as MortgageDetails;
+    this.dialog.open(MortgageQuoteDetailsComponent,  {data: details});
   }
 
 }

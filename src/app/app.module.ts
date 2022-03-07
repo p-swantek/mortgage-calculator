@@ -22,7 +22,7 @@ import { NgxsModule } from '@ngxs/store';
       developmentMode: !environment.production
     })
   ],
-  providers: [],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

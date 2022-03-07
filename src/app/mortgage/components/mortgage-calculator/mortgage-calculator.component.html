@@ -22,7 +22,7 @@
             <h2>{{formGroup.get('downPayment')!.value | currency}}</h2>
           </div>
         </div>
-        <mat-slider [step]="1" [min]="0" [max]="formGroup.get('purchasePrice')!.value" [value]="formGroup.get('purchasePrice')!.value"
+        <mat-slider [step]="1" [min]="0" [max]="formGroup.get('purchasePrice')!.value"
           (input)="downPaymentChanged($event)"></mat-slider>
       </div>
       <div class="col-4">
@@ -31,10 +31,11 @@
             <h2>Repayment Time: </h2>
           </div>
           <div class="col">
-            <h2>{{formGroup.get('repaymentTime')!.value}}</h2>
+            <h2>{{formGroup.get('repaymentTime')!.value | repaymentTime}}</h2>
           </div>
         </div>
-        <mat-slider [step]="1" [min]="1" [max]="repaymentTime" (input)="repaymentTimeChanged($event)" [value]="formGroup.get('repaymentTime')?.value"></mat-slider>
+        <mat-slider [step]="1" [min]="1" [max]="repaymentTime" (input)="repaymentTimeChanged($event)"
+          [value]="formGroup.get('repaymentTime')?.value"></mat-slider>
       </div>
     </div>
     <div class="row">
@@ -66,13 +67,14 @@
             <h2>Estimated per month: </h2>
           </div>
           <div class="col">
-            <h2>{{formGroup.get('paymentPerMonth')!.value | currency}}</h2>          </div>
+            <h2>{{formGroup.get('paymentPerMonth')!.value | currency}}</h2>
+          </div>
         </div>
       </div>
     </div>
     <div class="row">
       <div class="col-3">
-        <button mat-raised-button color="primary">Get a mortgage quote</button>
+        <button mat-raised-button color="primary" (click)="showMortgageQuoteDetails()">Get a mortgage quote</button>
       </div>
     </div>
   </form>
