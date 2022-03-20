@@ -4,7 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: 'mortgage',
-    loadChildren: () => import('./mortgage/mortgage.module').then(m => m.MortgageModule)
+    loadChildren: () =>
+      import('./mortgage/mortgage.module').then(m => m.MortgageModule)
   },
   {
     path: '**',
@@ -16,4 +17,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

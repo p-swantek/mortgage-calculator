@@ -8,11 +8,8 @@ import { CoreModule } from './core/core.module';
 import { environment } from 'src/environments/environment';
 import { NgxsModule } from '@ngxs/store';
 
-
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -25,4 +22,4 @@ import { NgxsModule } from '@ngxs/store';
 
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

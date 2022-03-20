@@ -8,9 +8,8 @@ describe('MortgageQuoteDetailsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MortgageQuoteDetailsComponent ]
-    })
-    .compileComponents();
+      declarations: [MortgageQuoteDetailsComponent]
+    }).compileComponents();
   });
 
   beforeEach(() => {

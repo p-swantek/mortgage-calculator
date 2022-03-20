@@ -6,7 +6,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatDialogModule } from '@angular/material/dialog';
 
-
 @NgModule({
   imports: [
     MatFormFieldModule,
@@ -25,4 +24,4 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatDialogModule
   ]
 })
-export class MaterialModule { }
+export class MaterialModule {}
