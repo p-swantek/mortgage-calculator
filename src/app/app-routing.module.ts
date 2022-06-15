@@ -8,7 +8,7 @@ const routes: Routes = [
       import('./mortgage/mortgage.module').then(m => m.MortgageModule)
   },
   {
-    path: '**',
+    path: '',
     redirectTo: 'mortgage'
   }
 ];
