@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-import { MatSliderChange } from '@angular/material/slider';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatLegacySliderChange as MatSliderChange } from '@angular/material/legacy-slider';
 import { MortgageCalculatorService } from '../../mortgage-calculator.service';
 import { MortgageDetails } from '../../mortgage-details';
 import { MortgageQuoteDetailsComponent } from '../mortgage-quote-details/mortgage-quote-details.component';
