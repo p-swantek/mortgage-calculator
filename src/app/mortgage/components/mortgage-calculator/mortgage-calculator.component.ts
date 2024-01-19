@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSliderChange } from '@angular/material/slider';
 import { MortgageCalculatorService } from '../../mortgage-calculator.service';
@@ -12,7 +12,7 @@ import { MortgageQuoteDetailsComponent } from '../mortgage-quote-details/mortgag
   styleUrls: ['./mortgage-calculator.component.scss']
 })
 export class MortgageCalculatorComponent {
-  formGroup: FormGroup;
+  formGroup: UntypedFormGroup;
 
   purchasePrice: number;
 
@@ -21,7 +21,7 @@ export class MortgageCalculatorComponent {
   interestRate: number;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private calculator: MortgageCalculatorService,
     private dialog: MatDialog
   ) {
