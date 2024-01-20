@@ -9,7 +9,8 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'mortgage'
+    redirectTo: 'mortgage',
+    pathMatch: 'full'
   }
 ];
 

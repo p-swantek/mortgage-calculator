@@ -7,16 +7,12 @@
             <h2>Purshase Price:</h2>
           </div>
           <div class="col">
-            <h2>{{ formGroup.get("purchasePrice")?.value | currency }}</h2>
+            <h2>{{ formGroup.get("purchasePrice").value | currency }}</h2>
           </div>
         </div>
-        <mat-slider
-          [step]="100"
-          [min]="0"
-          [max]="purchasePrice"
-          [value]="purchasePrice"
-          (input)="purchasePriceChanged($event)"
-        ></mat-slider>
+        <mat-slider [step]="100" [min]="0" [max]="purchasePrice">
+          <input matSliderThumb formControlName="purchasePrice" />
+        </mat-slider>
       </div>
       <div class="col-4">
         <div class="row">
@@ -24,15 +20,16 @@
             <h2>Down Payment:</h2>
           </div>
           <div class="col">
-            <h2>{{ formGroup.get("downPayment")?.value | currency }}</h2>
+            <h2>{{ formGroup.get("downPayment").value | currency }}</h2>
           </div>
         </div>
         <mat-slider
           [step]="100"
           [min]="0"
-          [max]="formGroup.get('purchasePrice')!.value"
-          (input)="downPaymentChanged($event)"
-        ></mat-slider>
+          [max]="formGroup.get('purchasePrice').value"
+        >
+          <input matSliderThumb formControlName="downPayment" />
+        </mat-slider>
       </div>
       <div class="col-4">
         <div class="row">
@@ -40,16 +37,12 @@
             <h2>Repayment Time:</h2>
           </div>
           <div class="col">
-            <h2>{{ formGroup.get("repaymentTime")?.value | repaymentTime }}</h2>
+            <h2>{{ formGroup.get("repaymentTime").value | repaymentTime }}</h2>
           </div>
         </div>
-        <mat-slider
-          [step]="1"
-          [min]="1"
-          [max]="repaymentTime"
-          (input)="repaymentTimeChanged($event)"
-          [value]="formGroup.get('repaymentTime')?.value"
-        ></mat-slider>
+        <mat-slider [step]="1" [min]="1" [max]="30">
+          <input matSliderThumb formControlName="repaymentTime" />
+        </mat-slider>
       </div>
     </div>
     <div class="row">
@@ -59,16 +52,11 @@
             <h2>Interest Rate:</h2>
           </div>
           <div class="col">
-            <h2>{{ formGroup.get("interestRate")?.value }}%</h2>
+            <h2>{{ formGroup.get("interestRate").value }}%</h2>
           </div>
         </div>
-        <mat-slider
-          [step]="0.01"
-          [min]="0"
-          [max]="100"
-          [value]="interestRate"
-          (input)="interestRateChanged($event)"
-        >
+        <mat-slider [step]="0.01" [min]="0" [max]="100">
+          <input matSliderThumb formControlName="interestRate" />
         </mat-slider>
       </div>
       <div class="col-4">
@@ -77,7 +65,7 @@
             <h2>Loan amount:</h2>
           </div>
           <div class="col">
-            <h2>{{ formGroup.get("loanAmount")?.value | currency }}</h2>
+            <h2>{{ formGroup.get("loanAmount").value | currency }}</h2>
           </div>
         </div>
       </div>
@@ -87,7 +75,7 @@
             <h2>Estimated per month:</h2>
           </div>
           <div class="col">
-            <h2>{{ formGroup.get("paymentPerMonth")?.value | currency }}</h2>
+            <h2>{{ formGroup.get("paymentPerMonth").value | currency }}</h2>
           </div>
         </div>
       </div>
