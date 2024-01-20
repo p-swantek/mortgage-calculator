@@ -5,7 +5,7 @@
     <li>Down Payment: {{details.downPayment | currency}}</li>
     <li>Loan Amount: {{details.loanAmount | currency}}</li>
     <li>Repayment Time: {{details.repaymentTime | repaymentTime}}</li>
-    <li>Interest Rate: {{details.interestRate}}%</li>
+    <li>Interest Rate: {{details.interestRate | percent: '1.2-2'}}</li>
     <li>Monthly Payment: {{details.paymentPerMonth | currency}}</li>
   </ul>
 </mat-dialog-content>
