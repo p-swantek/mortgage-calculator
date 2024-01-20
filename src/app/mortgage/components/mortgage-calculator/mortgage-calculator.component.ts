@@ -4,6 +4,7 @@ import { MortgageCalculatorService } from '../../mortgage-calculator.service';
 import { MortgageDetails } from '../../mortgage-details';
 import { MortgageQuoteDetailsComponent } from '../mortgage-quote-details/mortgage-quote-details.component';
 import { MatDialog } from '@angular/material/dialog';
+import { combineLatest, startWith } from 'rxjs';
 
 export interface MortgageForm {
   purchasePrice: FormControl<number>
@@ -43,17 +44,24 @@ export class MortgageCalculatorComponent {
 
     const payment = this.getMonthlyPayment();
 
-    this.formGroup.patchValue({ paymentPerMonth: payment });
+    this.formGroup.get('paymentPerMonth').setValue(payment);
 
-    this.formGroup.get('purchasePrice').valueChanges.subscribe((v: number) => {
-      const amount = v - this.formGroup.get('downPayment').value;
-      this.formGroup.patchValue({ loanAmount: amount });
+    combineLatest([this.formGroup.get('purchasePrice').valueChanges, this.formGroup.get('downPayment').valueChanges]).pipe(
+      startWith([0, 0])
+    ).subscribe(purchasePriceAndDownPayment => {
+      const purchasePrice = purchasePriceAndDownPayment[0];
+      const downPayment = purchasePriceAndDownPayment[1];
+      const loanAmount = purchasePrice - downPayment;
+      if (loanAmount <= 0){
+        this.formGroup.get('loanAmount').setValue(0);
+        this.formGroup.get('downPayment').setValue(purchasePrice, {emitEvent: false});
+      }
+      else{
+        this.formGroup.get('loanAmount').setValue(loanAmount);
+      }
+
     });
 
-    this.formGroup.get('downPayment').valueChanges.subscribe((v: number) => {
-      const amount = this.formGroup.get('purchasePrice').value - v;
-      this.formGroup.patchValue({ loanAmount: amount });
-    });
 
     this.formGroup.get('loanAmount').valueChanges.subscribe(loanAmount => {
       const purchasePriceControl = this.formGroup.get('purchasePrice');
