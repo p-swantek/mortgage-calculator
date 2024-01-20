@@ -9,7 +9,7 @@ export class MortgageCalculatorService {
   calculateMonthlyPayment(purchasePrice: number, downPayment: number, interestRate: number, repaymentTime: number): number {
     const principal = Math.max(purchasePrice - downPayment, 0);
     const numPayments = repaymentTime * 12;
-    const monthlyInterestRate = interestRate / 100 / 12;
+    const monthlyInterestRate = interestRate / 12;
     if (monthlyInterestRate === 0) {
       return principal / numPayments;
     }

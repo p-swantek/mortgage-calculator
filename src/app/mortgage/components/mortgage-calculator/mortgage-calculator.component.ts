@@ -9,7 +9,7 @@ import { Subject, combineLatest, startWith, takeUntil } from 'rxjs';
 
 const INITIAL_PURCHASE_PRICE = 3000000;
 const INITIAL_REPAYMENT_TIME = 25;
-const INITIAL_INTEREST_RATE = 6;
+const INITIAL_INTEREST_RATE = 0.06;
 
 @Component({
   selector: 'mortgage-calculator',
