@@ -55,6 +55,17 @@ export class MortgageCalculatorComponent {
       this.formGroup.patchValue({ loanAmount: amount });
     });
 
+    this.formGroup.get('loanAmount').valueChanges.subscribe(loanAmount => {
+      const purchasePriceControl = this.formGroup.get('purchasePrice');
+
+      if (loanAmount <= 0){
+        purchasePriceControl.disable({emitEvent: false});
+      }
+      else{
+        purchasePriceControl.enable({emitEvent: false});
+      }
+    });
+
     this.formGroup.valueChanges.subscribe(() => {
       const payment = this.getMonthlyPayment();
 
