@@ -1,19 +1,12 @@
-import { Component } from '@angular/core';
-import { FormControl, FormGroup, NonNullableFormBuilder } from '@angular/forms';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormGroup, NonNullableFormBuilder } from '@angular/forms';
 import { MortgageCalculatorService } from '../../mortgage-calculator.service';
-import { MortgageDetails } from '../../mortgage-details';
+import { MortgageDetails, MortgageDetailsForm } from '../../mortgage-details';
 import { MortgageQuoteDetailsComponent } from '../mortgage-quote-details/mortgage-quote-details.component';
 import { MatDialog } from '@angular/material/dialog';
-import { combineLatest, startWith } from 'rxjs';
+import { Subject, combineLatest, startWith, takeUntil } from 'rxjs';
 
-export interface MortgageForm {
-  purchasePrice: FormControl<number>
-  downPayment: FormControl<number>
-  repaymentTime: FormControl<number>
-  interestRate: FormControl<number>
-  loanAmount: FormControl<number>
-  paymentPerMonth: FormControl<number>
-}
+
 const INITIAL_PURCHASE_PRICE = 3000000;
 const INITIAL_REPAYMENT_TIME = 25;
 const INITIAL_INTEREST_RATE = 6;
@@ -23,9 +16,10 @@ const INITIAL_INTEREST_RATE = 6;
   templateUrl: './mortgage-calculator.component.html',
   styleUrls: ['./mortgage-calculator.component.scss']
 })
-export class MortgageCalculatorComponent {
-  formGroup: FormGroup<MortgageForm>;
+export class MortgageCalculatorComponent implements OnInit, OnDestroy{
+  formGroup: FormGroup<MortgageDetailsForm>;
   purchasePrice: number = INITIAL_PURCHASE_PRICE;
+  private destroySub: Subject<void> = new Subject();
 
   constructor(
     private fb: NonNullableFormBuilder,
@@ -42,12 +36,16 @@ export class MortgageCalculatorComponent {
       paymentPerMonth: this.fb.control(0)
     })
 
+
+  }
+  ngOnInit(): void {
     const payment = this.getMonthlyPayment();
 
     this.formGroup.get('paymentPerMonth').setValue(payment);
 
     combineLatest([this.formGroup.get('purchasePrice').valueChanges, this.formGroup.get('downPayment').valueChanges]).pipe(
-      startWith([0, 0])
+      startWith([0, 0]),
+      takeUntil(this.destroySub)
     ).subscribe(purchasePriceAndDownPayment => {
       const purchasePrice = purchasePriceAndDownPayment[0];
       const downPayment = purchasePriceAndDownPayment[1];
@@ -63,7 +61,7 @@ export class MortgageCalculatorComponent {
     });
 
 
-    this.formGroup.get('loanAmount').valueChanges.subscribe(loanAmount => {
+    this.formGroup.get('loanAmount').valueChanges.pipe(takeUntil(this.destroySub)).subscribe(loanAmount => {
       const purchasePriceControl = this.formGroup.get('purchasePrice');
 
       if (loanAmount <= 0){
@@ -74,7 +72,7 @@ export class MortgageCalculatorComponent {
       }
     });
 
-    this.formGroup.valueChanges.subscribe(() => {
+    this.formGroup.valueChanges.pipe(takeUntil(this.destroySub)).subscribe(() => {
       const payment = this.getMonthlyPayment();
 
       this.formGroup.patchValue(
@@ -82,6 +80,11 @@ export class MortgageCalculatorComponent {
         { emitEvent: false }
       );
     });
+  }
+
+  ngOnDestroy(): void {
+    this.destroySub.next();
+    this.destroySub.complete();
   }
 
   private getMonthlyPayment(): number{
