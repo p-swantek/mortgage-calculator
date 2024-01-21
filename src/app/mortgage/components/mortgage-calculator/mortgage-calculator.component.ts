@@ -43,8 +43,10 @@ export class MortgageCalculatorComponent implements OnInit, OnDestroy{
 
     this.formGroup.get('paymentPerMonth').setValue(payment);
 
-    combineLatest([this.formGroup.get('purchasePrice').valueChanges, this.formGroup.get('downPayment').valueChanges]).pipe(
-      startWith([0, 0]),
+    combineLatest([
+      this.formGroup.get('purchasePrice').valueChanges.pipe(startWith(INITIAL_PURCHASE_PRICE)),
+      this.formGroup.get('downPayment').valueChanges.pipe(startWith(0))
+    ]).pipe(
       takeUntil(this.destroySub)
     ).subscribe(purchasePriceAndDownPayment => {
       const purchasePrice = purchasePriceAndDownPayment[0];
